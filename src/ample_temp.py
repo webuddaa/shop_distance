@@ -92,7 +92,7 @@ def bottom_divergence(temp_df, now_price) -> bool:
     final_target = target_0 and target_1 and target_2 and target_3 and target_4
 
     target_5 = temp_df.iloc[-1]["macd_abs_sum"] * 2 < temp_df.iloc[-3]["macd_abs_sum"] < temp_df.iloc[-5]["macd_abs_sum"]
-    target_6 = temp_df.iloc[-1]["diff_min"] > temp_df.iloc[-3]["diff_min"] > temp_df.iloc[-5]["diff_min"]
+    target_6 = 0 > temp_df.iloc[-1]["diff_min"] > temp_df.iloc[-3]["diff_min"] > temp_df.iloc[-5]["diff_min"]
     final_target2 = target_0 and target_5 and target_6
     
     return final_target or final_target2
@@ -121,7 +121,7 @@ def peak_divergence(temp_df, now_price) -> bool:
     final_target = target_0 and target_1 and target_2 and target_3 and target_4
     
     target_5 = temp_df.iloc[-1]["macd_abs_sum"] * 2 < temp_df.iloc[-3]["macd_abs_sum"] < temp_df.iloc[-5]["macd_abs_sum"]
-    target_6 = temp_df.iloc[-1]["diff_max"] < temp_df.iloc[-3]["diff_max"] < temp_df.iloc[-5]["diff_max"]
+    target_6 = 0 < temp_df.iloc[-1]["diff_max"] < temp_df.iloc[-3]["diff_max"] < temp_df.iloc[-5]["diff_max"]
     final_target2 = target_0 and target_5 and target_6
     
     return final_target or final_target2
