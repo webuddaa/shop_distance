@@ -7,6 +7,7 @@ import argparse
 from datetime import datetime
 
 from src.future_k_lines import get_k_lines
+from src.message_utils import send_wechat_msg
 
 
 def convert_symbol(temp_symbol: str):
@@ -87,6 +88,8 @@ def get_futures_basis_info(path):
     final_symbol_list3 = sorted(final_symbol_list2)
     with open(f"{path}/data/tmp.txt", "w") as f:
         f.write(json.dumps(final_symbol_list3))
+
+    send_wechat_msg(f"当天可以交易的合约有{len(final_symbol_list3)}个")
 
 
 if __name__ == '__main__':
