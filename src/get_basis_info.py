@@ -84,8 +84,9 @@ def get_futures_basis_info(path):
         if val > 10000:
             final_symbol_list2.append(symbol)
 
+    final_symbol_list3 = sorted(final_symbol_list2)
     with open(f"{path}/data/tmp.txt", "w") as f:
-        f.write(json.dumps(final_symbol_list2))
+        f.write(json.dumps(final_symbol_list3))
 
 
 if __name__ == '__main__':
