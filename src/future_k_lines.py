@@ -1,9 +1,7 @@
-import akshare as ak
 import pandas as pd
 import time
 import requests
 import json
-import re
 
 
 def _futures_zh_minute_sina(symbol: str, period: str) -> pd.DataFrame:
@@ -75,16 +73,3 @@ def get_k_lines(symbol: str, period: str):
     past_symbol = f"{a1}{int(year) - 1:02d}{a2}"
     temp_df2 = _get_k_lines_temp(past_symbol, period)
     return pd.concat([temp_df2, temp_df])
-
-
-def get_futures_current_pirce(symbol: str) -> float:
-    """
-    获取该合约当前的价格
-    symbol: AP2305
-    """
-    target = ''.join(re.findall(r'[A-Za-z]', symbol))
-    market = "FF" if target in ("IF", "IH", "IC", "IM", "TS", "TF", "T") else "CF"
-
-    temp_df = ak.futures_zh_spot(symbol=symbol, market=market, adjust='0')
-    current_price = float(temp_df.loc[0, "current_price"])
-    return current_price
