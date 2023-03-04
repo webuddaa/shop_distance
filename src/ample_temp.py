@@ -179,11 +179,7 @@ if __name__ == '__main__':
     while True:
         result_peak, result_bottom = fun(p, all_symbol_list)
 
-        if len(result_peak) > 0:
-            content2 = f"级别: {p} | 做空: {result_peak}"
-            send_wechat_msg(content2)
-
-        if len(result_bottom) > 0:
-            content = f"级别: {p} | 做多: {result_bottom}"
+        if len(result_peak) > 0 or len(result_bottom) > 0:
+            content = f"级别: {p} || 做多: {result_bottom} || 做空: {result_peak}"
             send_wechat_msg(content)
 
