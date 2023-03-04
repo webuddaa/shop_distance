@@ -1,0 +1,1 @@
+ps x | grep 'ample_temp' | grep -v grep | awk '{print $1}' | xargs kill -9
