@@ -6,6 +6,7 @@ from loguru import logger
 import argparse
 from datetime import datetime
 
+from src.const_conf import NIGHT_FUTURE_SYMBOLS
 from src.future_k_lines import get_k_lines
 from src.message_utils import send_wechat_msg
 
@@ -53,8 +54,6 @@ def get_futures_basis_info(path):
     temp_df3["现价"] = temp_df3["现价"].apply(float)
     temp_df4 = temp_df3[["合约品种", "合约代码", "交易所保证金", "手续费-开仓", "手续费-平昨", "手续费-平今", "现价", "每手保证金"]].reset_index(drop=True)
 
-    # 可以夜盘交易的品种
-    NIGHT_FUTURE_SYMBOLS = ["BU", "FU", "HC", "RB", "C", "CS", "EB", "EG", "L", "PP", "V", "CF", "CY", "FG", "MA", "PF", "SA", "SR"]
     temp_df5 = temp_df4[(temp_df4["合约品种"].isin(NIGHT_FUTURE_SYMBOLS)) & (temp_df4["每手保证金"] < 9000)]
 
     dt = datetime.now()

@@ -34,17 +34,28 @@ def fun(period: str, all_symbols: list):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--period', type=str)
+    parser.add_argument('--period', type=str, default=None)
+    parser.add_argument('--period_list', type=json.loads, default=None)
     parser.add_argument('--path', type=str)
     args = parser.parse_args()
 
     all_symbol_list = get_symbol_list(args.path)
 
-    p = args.period
-    while True:
-        result_peak, result_bottom = fun(p, all_symbol_list)
+    if args.period:
+        p = args.period
+        while True:
+            result_peak, result_bottom = fun(p, all_symbol_list)
 
-        if len(result_peak) > 0 or len(result_bottom) > 0:
-            content = f"级别: {p} || 做多: {result_bottom} || 做空: {result_peak}"
-            send_wechat_msg(content)
+            if len(result_peak) > 0 or len(result_bottom) > 0:
+                content = f"级别: {p} || 做多: {result_bottom} || 做空: {result_peak}"
+                send_wechat_msg(content)
+
+    if args.period_list:
+        while True:
+            for p in args.period_list:
+                result_peak, result_bottom = fun(p, all_symbol_list)
+
+                if len(result_peak) > 0 or len(result_bottom) > 0:
+                    content = f"级别: {p} || 做多: {result_bottom} || 做空: {result_peak}"
+                    send_wechat_msg(content)
 
